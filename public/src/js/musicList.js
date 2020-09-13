@@ -62,24 +62,8 @@ const renderMusics = async (musics, type) => {
          <div class="album-artist">${music.composer}</div>
        </li>`;
   });
-  // for (let i = 0; i < data.length; i++) {
-  //   const musicItem = data[i];
-  //   musicItems += `<li id="ml-${i}" class="music">
-  //     <div class="album-con-outer">
-  //       <div class="album-con-inner">
-  //         <div class="album-img"></div>
-  //         <div class="album-blur hidden"></div>
-  //         <div class="album-btn-set hidden">
-  //           <button class="album-btn favorite ${id === 'guest' ? '' : d}"></button>
-  //           <button class="album-btn play"></button>
-  //           <button class="album-btn plus"></button>
-  //         </div>
-  //       </div>
-  //     </div>
-  //     <div class="album-title">${musicItem.title}</div>
-  //     <div class="album-artist">${musicItem.composer}</div>
-  //   </li>`;
-  // }
+
+
   myStorage.setItem('albumType', type);
   $musicList.innerHTML = musicItems;
   setBackgroundImg(musics);
@@ -100,7 +84,7 @@ const renderTypeList = async type => {
 };
 
 
-const getTop10Musics = async (e) => {
+const getTop10Musics = async () => {
   const { data } = await axios.get('/top10');
   const musics = data;
   renderMusics(musics, 'top10');
@@ -152,7 +136,6 @@ $favorOpenBtn.addEventListener('click', async () => {
 $favoriteCloseBtn.addEventListener('click', () => {
   $favoriteListAll.classList.toggle('active');
 });
-
 
 
 export {
