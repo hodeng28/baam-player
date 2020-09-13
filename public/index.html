@@ -4,14 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/main.css">
   <script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script defer src="https://cdn.bootpay.co.kr/js/bootpay-3.2.3.min.js" type="application/javascript"></script>
   <script defer src="/dist/js/bundle.js" type="application/javascript"></script>
   <script type = "module" defer src="./src/js/login.js"></script>
-  <script type="module" defer src="/src/js/main.js"></script>
   <script type="module" defer src="./src/js/musicList.js"></script>
-  <title>Document</title>
+  <script type="module" defer src="./src/js/search.js"></script>
+  <script type="module" defer src="./src/js/signin.js"></script>
+  <script type="module" defer src="./src/js/signup.js"></script>
+  <script type="module" defer src="/src/js/toast.js"></script>
+  <script type="module" defer src="/src/js/main.js"></script>
+  <title>Baam Player</title>
 </head>
 <body>
   <div class="background-blur">
@@ -31,18 +36,18 @@
             <div class="user-info">
               <div class="user-image-box">
                 <!-- js에서 img src 변경 -->
-                <img src="./css/user-img/rohan-makhecha-jw3GOzxiSkw-unsplash 1.png" alt="" class="user-inner-img">
+                <div class="user-inner-img"></div>
               </div>
-              <div class="user-id">Guest</div>
+              <div class="user-id id-main">guest</div>
               <div class="normal-icon user-icon"></div>
               <div class="premium-icon user-icon hidden"></div>
             </div>
   
-            <div class="login-btn-container guest-menu">
+            <div class="login-btn-container guest-menu hidden">
               <div class="sign-in">SIGN IN</div>
               <div class="sign-up">SIGN UP</div>
             </div>
-            <div class="login-btn-container user-menu hidden">
+            <div class="login-btn-container user-menu">
               <div class="sign-favorite">Favorite</div>
               <div class="sign-out">SIGN OUT</div>
             </div>
@@ -104,91 +109,40 @@
   
           </div>
   
-          <!-- music list -->
-          <div class="musics">
-            <ul class="music-list">
-              <li id="ml-0" class="music">
-                <div class="album-img"></div>
-                <div class="album-blur hidden"></div>
-                <div class="album-btn-set hidden">
-                  <button class="album-btn favorite select"></button>
-                  <button class="album-btn play"></button>
-                  <button class="album-btn plus"></button>
-                </div>
-                <div class="album-title">Title</div>
-                <div class="album-artist">Artist</div>
-              </li>
+          <div class="container-main">
+            <!-- music list -->
+            <div class="musics">
+              <ul class="music-list">
+                <!-- render music list-->
+              </ul>
+            </div>
   
-              <li id="ml-1" class="music">
-                <div class="album-img"></div>
-                <div class="album-blur hidden"></div>
-                <div class="album-btn-set hidden">
-                  <button class="album-btn favorite"></button>
-                  <button class="album-btn play"></button>
-                  <button class="album-btn plus"></button>
-                </div>
-                <div class="album-title">Title</div>
-                <div class="album-artist">Artist</div>
-              </li>
-  
-              <li id="ml-2" class="music">
-                <div class="album-img"></div>
-                <div class="album-blur hidden"></div>
-                <div class="album-btn-set hidden">
-                  <button class="album-btn favorite select"></button>
-                  <button class="album-btn play"></button>
-                  <button class="album-btn plus"></button>
-                </div>
-                <div class="album-title">Title</div>
-                <div class="album-artist">Artist</div>
-              </li>
-  
-              <li id="ml-3" class="music">
-                <div class="album-img"></div>
-                <div class="album-blur hidden"></div>
-                <div class="album-btn-set hidden">
-                  <button class="album-btn favorite select"></button>
-                  <button class="album-btn play"></button>
-                  <button class="album-btn plus"></button>
-                </div>
-                <div class="album-title">Title</div>
-                <div class="album-artist">Artist</div>
-              </li>
-  
-              <li id="ml-4" class="music">
-                <div class="album-img"></div>
-                <div class="album-blur hidden"></div>
-                <div class="album-btn-set hidden">
-                  <button class="album-btn favorite select"></button>
-                  <button class="album-btn play"></button>
-                  <button class="album-btn plus"></button>
-                </div>
-                <div class="album-title">Title</div>
-                <div class="album-artist">Artist</div>
-              </li>
-  
-              <li id="ml-5" class="music">
-                <div class="album-img"></div>
-                <div class="album-blur hidden"></div>
-                <div class="album-btn-set hidden">
-                  <button class="album-btn favorite select"></button>
-                  <button class="album-btn play"></button>
-                  <button class="album-btn plus"></button>
-                </div>
-                <div class="album-title">Title</div>
-                <div class="album-artist">Artist</div>
-              </li>
-  
-            </ul>
+            <!-- <div class="music-top-view">
+              <ul class="music-top-list">
+                <li class="music-top-item">
+                  <div class="music-top-rank">
+                    <div class="music-top-ranktext">1</div>
+                    <i class="fas fa-star rank-star"></i>
+                  </div>
+                  <div class="music-top-img"></div>
+                  <div class="music-top-title">title</div>
+                  <div class="music-top-artist">artist</div>
+                  <div class="music-top-count">count</div>
+                </li>
+              </ul>
+            </div> -->
+          </div>
+          
+          <div class="toast-container">
           </div>
         </main>
       </div>
   
       <!-- play-list -->
-      <div class="play-list-all active">
+      <div class="play-list-all">
           <span>PLAYLIST</span>
           <ul class="play-list">
-            <li id="li-1" class="play-list-item">
+            <!-- <li id="li-1" class="play-list-item">
               <span class="list-item-title">Title</span>
               <span class="list-item-artist">Artist</span>
               <button class="list-up"></button>
@@ -222,10 +176,21 @@
               <button class="list-up"></button>
               <button class="list-down"></button>
               <button class="list-remove"></button>
-            </li>
+            </li> -->
             
           </ul>
+          <button class="play-list-close"></button>
       </div>
+
+      <!-- favorite-list -->
+      <div class="favorite-list-all">
+        <span>FAVORITE MUSIC</span>
+        <ul class="favorite-list">      
+        </ul>
+        <button class="favorite-list-close"></button>
+      </div>
+
+      
   
   
       <!-- player -->
@@ -234,17 +199,16 @@
         <div class="playing-music">
           <div class="playing-music-img"></div>
           <div class="playing-music-info">
-            <div class="playing-music-title">Title</div>
-            <div class="playing-music-artist">Artist</div>
+            <div class="playing-music-title"></div>
+            <div class="playing-music-artist"></div>
           </div>
         </div>
   
         <div class="player-btn-set">
-          <button class="player-shuffle"></button>
-          <!-- <button class="player-repeat"></button> -->
-          <button class="player-prev"></button>
-          <button class="player-play"></button>
-          <button class="player-next"></button>
+          <button class="player-shuffle"><i class="fas fa-random"></i></button>
+          <button class="player-prev"><i class="fas fa-backward"></i></button>
+          <button class="player-play"><i class="fas fa-play"></i></button>
+          <button class="player-next"><i class="fas fa-forward"></i></button>
         </div>
         <div class="prog-bar">
           <span class="play-time-ing">00:00</span>
@@ -255,10 +219,11 @@
           </div>
           <span class="play-time">00:00</span>
         </div>
+        <div class="nomal-user-pop hidden">1분 미리듣기 중입니다. 프리미엄 회원으로 전환하세요!</div>
+
         <div class="player-sound-container">
-          <button class="player-sound">
-          </button>
-          <div class="sound-popup">
+          <button class="player-sound"><i class="fas fa-volume-up"></i></button>
+          <div class="sound-popup hidden">
             <div class="sound-bar-getevent">
               <div class="sound-bar">
                 <div class="sound-bar-inner"></div>
@@ -267,8 +232,8 @@
           </div>
         </div>
   
-        <button class="play-list-open"></button>
-  
+        <button class="play-list-open"><i class="fas fa-list"></i></button>
+        <div class="toast-container"></div>
       </div>
   
         
@@ -279,18 +244,51 @@
           <input type="text" class="signin-id-input">
           <div class="signin-hidden-box"></div>
         </div>
-        <div class="signin-error err-text">영문과 숫자의 조합으로만 가능합니다.</div>
+        <!-- <div class="signin-error err-text"></div> -->
         <div class="signin-password">
           <span class="signin-text">Password</span>
-          <input type="text" class="signin-password-input">
+          <input type="password" class="signin-password-input">
           <div class="signin-hidden-box"></div>
         </div>
-        <div class="signin-errorpw err-text">6자리 이상으로만 가능합니다.</div>
+        <!-- <div class="signin-errorpw err-text">6자리 이상으로만 가능합니다.</div> -->
+        <div class="signin-reject-text"></div>
         <div class="signin-btn-set">
           <button class="signin-signin-btn">Sign-in</button>
           <button class="signin-signup-btn">Sign-up</button>
         </div>
         <button class="popup-close"></button>
+      </div>
+
+      <div class="signin-complete-popup hidden">
+        <div class="signin-complete-title">로그인 되었습니다.</div>
+        <button class="signin-complete-btn">확인</button>
+      </div>
+
+      <div class="signup-complete-popup hidden">
+        <div class="signup-complete-title signup-complete-msg">회원가입에 성공하였습니다.</div>
+        <div class="signup-complete-title">로그인 하시겠습니까?</div>
+        <div class="signup-completebtn-set">
+          <button class="signup-after-signin-btn">Sign-in</button>
+          <button class="signout-ckcancel-btn">다음에 하기</button>
+        </div>
+      </div>
+
+      <!-- <div class="signin-reject-popup hidden">
+        <div class="signin-reject-title">회원정보를 다시 확인해 주세요.</div>
+        <button class="signin-reject-btn">확인</button>
+      </div> -->
+
+      <div class="change-grade-popup hidden">
+        <div class="change-grade-title">프리미엄 회원으로 전환되었습니다!</div>
+        <button class="change-grade-btn">확인</button>
+      </div>
+
+      <div class="signout-check-popup hidden">
+        <div class="signout-check-title">로그아웃 하시겠습니까?</div>
+        <div class="signout-checkbtn-set">
+          <button class="signout-check-btn">Sign-out</button>
+          <button class="signout-cancel-btn">Cancel</button>
+        </div>
       </div>
   
       <div class="signup-popup hidden">
@@ -303,13 +301,13 @@
         <div class="signup-error err-text">영문과 숫자의 조합으로만 가능합니다.</div>
         <div class="signup-password">
           <span class="signup-text">Password</span>
-          <input type="text" class="signup-password-input">
+          <input type="password" class="signup-password-input">
           <div class="signup-hidden-box"></div>
         </div>
         <div class="signup-errorpw err-text">6자리 이상으로만 가능합니다</div>
         <div class="signup-password">
           <span class="signup-text"></span>
-          <input type="text" class="signup-password-re-input">
+          <input type="password" class="signup-password-re-input">
           <div class="signup-hidden-box"></div>
         </div>
         <div class="signup-errorpwre err-text">비밀번호를 다시 입력해 주세요, 비밀번호가 일치하지 않습니다</div>
@@ -325,8 +323,9 @@
           <div class="signup-hidden-box"></div>
         </div>
         <div class="signup-erroremail err-text">E-mail 형식에 맞게 입력해 주세요</div>
+        <div class="reject-signup-msg err-text"></div>
         <div class="signup-btn-set">
-          <button class="signup-signup-btn">Sign-up</button>
+          <button class="signup-signup-btn" disabled>Sign-up</button>
         </div>
         <button class="signup-popup-close"></button>
       </div>
@@ -334,9 +333,9 @@
       <div class="userinfo-popup hidden">
         <div class="userinfo-image-box">
           <!-- js에서 img src 변경 -->
-          <img src="./css/user-img/rohan-makhecha-jw3GOzxiSkw-unsplash 1.png" alt="" class="user-inner-img">
+          <div class="user-inner-img"></div>
         </div>
-        <div class="user-id userinfo-text">Guest</div>
+        <div class="user-id userinfo-text id-pop">guest</div>
         <div class="user-name userinfo-text">이름</div>
         <div class="user-grade userinfo-text">일반회원</div>
         <div class="user-email userinfo-text">login@gmail.com</div>
@@ -346,10 +345,10 @@
         </div>
         <div class="userinfo-btn-set popup-user-normal hidden">
           <button class="userinfo-Premium-btn">Premium 전환</button>
-          <button class="userinfo-signup-btn">Sign-out</button>
+          <button class="userinfo-signout-btn">Sign-out</button>
         </div>
         <div class="userinfo-btn-set popup-user-premium hidden">
-          <button class="userinfo-signup-btn">Sign-out</button>
+          <button class="userinfo-prisignout-btn">Sign-out</button>
         </div>
         <button class="userinfo-popup-close"></button>
       </div>
@@ -357,5 +356,6 @@
     </div>
   </div>
 
+  
 </body>
 </html>

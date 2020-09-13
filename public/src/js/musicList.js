@@ -1,47 +1,143 @@
-const $musicList = document.querySelector('.music-list');
-let $albumBlurs = document.querySelectorAll('.album-blur');
-let $albumBtns = document.querySelectorAll('.album-btn-set');
-let $favoriteBtns = document.querySelectorAll('.album-btn.favorite');
+import * as player from "./player.js";
 
-// 재생목록 click event dom
+
+const myStorage = window.localStorage;
+
+// dom
+// play List
 const $listOpenBtn = document.querySelector('.play-list-open');
 const $playListAll = document.querySelector('.play-list-all');
+const $playCloseBtn = document.querySelector('.play-list-close');
+// favorite List
+const $favoriteCloseBtn = document.querySelector('.favorite-list-close');
+const $favoriteListAll = document.querySelector('.favorite-list-all');
+const $favorOpenBtn = document.querySelector('.sign-favorite');
+const $favoriteList = document.querySelector('.favorite-list-all');
+
+const $logoBox = document.querySelector('.logo-box');
+const $musicList = document.querySelector('.music-list');
+
+// music genre  (side menu)
+const $jazzGenre = document.querySelector('.jazz-ganre');
+const $rockGenre = document.querySelector('.rock-ganre');
+const $classicGenre = document.querySelector('.classic-ganre');
+const $danceGenre = document.querySelector('.dance-ganre');
+const $hiphopGenre = document.querySelector('.hiopop-ganre');
+
+// music top
+const $musicTop = document.querySelector('.music-top');
 
 
-$musicList.addEventListener('mouseover', ({ target }) => {
-  if (!target.matches('.album-img')) return;
+const setBackgroundImg = data => {
+  const $albumImgs = document.querySelectorAll('.album-img');
+  $albumImgs.forEach((imgs, i) => {
+    imgs.style = `background-image: url(./css/al-img/${data[i].fileName}.png)`;
+  });
+};
 
-  $albumBlurs = document.querySelectorAll('.album-blur');
-  $albumBtns = document.querySelectorAll('.album-btn-set');
+const renderMusics = async (musics, type) => {
+  const id = myStorage.getItem('id');
+  let favoriteMusics;
 
-  const index = +target.parentNode.id.replace('ml-', '');
+  if (id !== 'guest') {
+    const { data } = await axios.post('/favorite', { id });
+    favoriteMusics = data;
+  }
 
-  $albumBlurs[index].classList.remove('hidden');
-  $albumBtns[index].classList.remove('hidden');
+  let musicItems = '';
+  musics.forEach((music, i) => {
+    musicItems += `<li id="ml-${i}" class="music">
+         <div class="album-con-outer">
+           <div class="album-con-inner">
+             <div class="album-img"></div>
+             <div class="album-blur hidden"></div>
+             <div class="album-btn-set hidden">
+               <button class="album-btn favorite ${id === 'guest' ? '' : favoriteMusics.find((fmusic) => fmusic.title === music.title) ? 'select' : ''}"></button>
+               <button class="album-btn play"></button>
+               <button class="album-btn plus"></button>
+             </div>
+           </div>
+         </div>
+         <div class="album-title">${music.title}</div>
+         <div class="album-artist">${music.composer}</div>
+       </li>`;
+  });
+
+
+  myStorage.setItem('albumType', type);
+  $musicList.innerHTML = musicItems;
+  setBackgroundImg(musics);
+};
+
+// 렌더함수
+const renderAllMusic = async () => {
+  const { data } = await axios.get('/musics');
+  renderMusics(data, 'all');
+};
+
+
+// 장르별 음악
+const renderTypeList = async type => {
+  const { data } = await axios.post('/typelist', { type });
+  const typeMusicList = data;
+  renderMusics(typeMusicList, type);
+};
+
+
+const getTop10Musics = async () => {
+  const { data } = await axios.get('/top10');
+  const musics = data;
+  renderMusics(musics, 'top10');
+};
+
+
+$logoBox.addEventListener('click', renderAllMusic);
+
+$musicTop.addEventListener('click', getTop10Musics);
+
+
+$jazzGenre.addEventListener('click', () => {
+  renderTypeList('jazz');
+});
+$rockGenre.addEventListener('click', () => {
+  renderTypeList('rock');
+});
+$classicGenre.addEventListener('click', () => {
+  renderTypeList('classic');
+});
+$danceGenre.addEventListener('click', () => {
+  renderTypeList('dance');
+});
+$hiphopGenre.addEventListener('click', () => {
+  renderTypeList('hiphop');
 });
 
 
-$musicList.addEventListener('mouseout', ({ target }) => {
-  if (!target.matches('.album-img')) return;
-
-  $albumBlurs = document.querySelectorAll('.album-blur');
-  $albumBtns = document.querySelectorAll('.album-btn-set');
-
-  const index = +target.parentNode.id.replace('ml-', '');
-
-  $albumBlurs[index].classList.add('hidden');
-  $albumBtns[index].classList.add('hidden');
+// playList open close btn
+$listOpenBtn.addEventListener('click', async () => {
+  $playListAll.classList.toggle('active');
+  $favoriteList.classList.remove('active');
+  // await player.setPlayList.fromServer(myStorage.getItem('id'));
+  await player.listRender();
 });
 
-
-// 재생목록 click event
-$listOpenBtn.addEventListener('click', () => {
+$playCloseBtn.addEventListener('click', () => {
   $playListAll.classList.toggle('active');
 });
 
-
-// 즐겨찾기!
-
-$favoriteBtns.addEventListener('click', () => {
-  console.dir($favoriteBtns);
+// favorite open close btn
+$favorOpenBtn.addEventListener('click', async () => {
+  $favoriteList.classList.toggle('active');
+  $playListAll.classList.remove('active');
+  // await player.setFavoriteList(myStorage.getItem('id'));
+  await player.favoriteRender();
 });
+
+$favoriteCloseBtn.addEventListener('click', () => {
+  $favoriteListAll.classList.toggle('active');
+});
+
+
+export {
+  renderAllMusic, renderMusics, renderTypeList
+};
